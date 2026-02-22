@@ -36,8 +36,8 @@ public class Main {
             System.out.println("4. Insert Clothing to DB (from CSV)");
             System.out.println("5. Display Electronics (from DB)");
             System.out.println("6. Display Clothing (from DB)");
-            System.out.println("7. Compute Total Inventory Value (from imported CSV)");
-            System.out.println("8. Display Packing Costs (from imported CSV)");
+            System.out.println("7. Compute Total Inventory Value (from imported CSV/DB)");
+            System.out.println("8. Display Packing Costs (from DB)");
             System.out.println("0. Exit");
 
             System.out.print("Select option: ");
@@ -143,7 +143,7 @@ public class Main {
                             costPerCM3 = Double.parseDouble(scanner.nextLine());
                         } catch (NumberFormatException e) {
                             System.out.println("Invalid input, defaulting to 0.0015 per cm³");
-                            costPerCM3 = 0.0015;
+                            costPerCM3 = 0.00015;
                         }
                         displayShippingCosts("Clothing", dbClothing, costPerCM3);
                     }
@@ -194,7 +194,7 @@ public class Main {
 
         for (Product p : products) {
             double shippingCost = p.getShippingCost(costPerUnit, p.getQuantity());
-            System.out.printf("%-25s %-10d units: %.2f shipping cost\n",
+            System.out.printf("%-25s %8d units: %10.2f shipping cost\n",
                     p.getProdName(), p.getQuantity(), shippingCost);
             totalShippingCost += shippingCost;
         }

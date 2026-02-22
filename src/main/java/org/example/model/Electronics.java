@@ -15,10 +15,11 @@ public class Electronics extends Product {
     // Getter
     public double getWeight() { return weight; }
 
-    // Creates an Electronics object, returning an Optional containing the object only if related parameters are valid
+    // Create an Electronics object, returning an Optional containing the object only if related parameters are valid
     public static Optional<Electronics> create (String category, String prodName, Integer quantity,
                                                 double unitCost, Integer margin, double weight) {
-        if (prodName == null || prodName.isBlank()) return Optional.empty();
+        if (category.matches("\\d+")) return Optional.empty();
+        if (prodName == null || prodName.isBlank() || prodName.matches("\\d+")) return Optional.empty();
         if (quantity < 0) return Optional.empty();
         if (unitCost < 0) return Optional.empty();
         if (margin < 0) return Optional.empty();
@@ -27,8 +28,14 @@ public class Electronics extends Product {
     }
 
     @Override
-    public double getShippingCost(double costPerUnit, Integer quantity) {
-        return getWeight() * costPerUnit * getQuantity(); // scale by quantity
+    public double getShippingCost(double costPerMeasure, Integer quantity) {
+        return getWeight() * costPerMeasure * getQuantity(); // scale by quantity
+    }
+
+    @Override
+    public String toString () {
+        return getCategory() + " | " + getProdName() + " | " + getQuantity()
+                + " | " + getUnitCost() + " | " + getMargin() + " | " + getWeight();
     }
 }
 

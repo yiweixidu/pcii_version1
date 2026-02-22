@@ -1,14 +1,14 @@
 category,prodName,quantity,unitCost,margin,volume
-Jeans,Skinny Fit Denim,50,40.00,41,4000
-Jacket,Leather Jacket,30,80.00,42,9000
-Jeans,Slim Fit Jeans,60,45.00,43,3800
-T-Shirt,Graphic Print Tee,70,20.00,44,1600
-Blouse,Button-Down Blouse,80,30.00,45,2000
-Dress,Sundress,40,60.00,46,5000
-Skirt,Mini Skirt,50,25.00,47,1500
-Shirt,Checkered Shirt,90,22.00,48,2200
-Socks,Ankle Socks,150,5.00,49,300
-Scarf,Knitted Scarf,60,15.00,50,1200
+Jeans, ,50,40.00,41,4000,three
+Jacket,Leather Jacket,30,80.00,42,9000,
+Jeans,Slim Fit Jeans,sixty,45.00,43,3800
+T-Shirt,Graphic Print Tee,70,-20.00,44,1600
+Blouse,Button-Down Blouse,80,30.00,-45,2000
+Dress,Sundress,40,60.00,46,-5000
+00,Mini Skirt,50,25.00,47,1500
+Shirt,0,90,22.00,48,2200
+Socks,Ankle Socks,150,5.00,49,
+Scarf,Knitted Scarf,60,15.00,50
 Hat,Baseball Cap,50,10.00,51,2500
 Gloves,Leather Gloves,40,25.00,52,600
 Coat,Trench Coat,35,70.00,53,10000

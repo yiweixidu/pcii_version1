@@ -14,10 +14,11 @@ public class Clothing extends Product {
     // Getter
     public double getVolume() { return volume; }
 
-    // Creates a Clothing object, returning an Optional containing the object only if related parameters are valid
+    // Create a Clothing object, returning an Optional containing the object only if related parameters are valid
     public static Optional<Clothing> create (String category, String prodName, Integer quantity,
                                                 double unitCost, Integer margin, double volume) {
-        if (prodName == null || prodName.isBlank()) return Optional.empty();
+        if (category.matches("\\d+")) return Optional.empty();
+        if (prodName == null || prodName.isBlank() || prodName.matches("\\d+")) return Optional.empty();
         if (quantity < 0) return Optional.empty();
         if (unitCost < 0) return Optional.empty();
         if (margin < 0) return Optional.empty();
@@ -26,7 +27,13 @@ public class Clothing extends Product {
     }
 
     @Override
-    public double getShippingCost(double costPerUnit, Integer quantity) {
-        return getVolume() * costPerUnit * getQuantity(); // scale by quantity
+    public double getShippingCost(double costPerMeasure, Integer quantity) {
+        return getVolume() * costPerMeasure * getQuantity(); // scale by quantity
+    }
+
+    @Override
+    public String toString () {
+        return getCategory() + " | " + getProdName() + " | " + getQuantity()
+                + " | " + getUnitCost() + " | " + getMargin() + " | " + getVolume();
     }
 }

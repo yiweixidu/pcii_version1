@@ -30,7 +30,7 @@ public abstract class Product {
     public double getUnitPrice() { return unitCost * (1 + margin / 100.0); }
 
     // Abstract method for shipping cost
-    public abstract double getShippingCost(double measure, Integer quantity);
+    public abstract double getShippingCost(double costPerMeasure, Integer quantity);
 
     @Override
     public String toString() {
