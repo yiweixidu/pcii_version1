@@ -32,12 +32,14 @@ public class Main {
             System.out.println("\n==== Inventory System ====");
             System.out.println("1. Import Electronics CSV");
             System.out.println("2. Import Clothing CSV");
-            System.out.println("3. Insert Electronics to DB (from CSV)");
-            System.out.println("4. Insert Clothing to DB (from CSV)");
-            System.out.println("5. Display Electronics (from DB)");
-            System.out.println("6. Display Clothing (from DB)");
-            System.out.println("7. Compute Total Inventory Value (from imported CSV/DB)");
-            System.out.println("8. Display Packing Costs (from DB)");
+            System.out.println("3. Display Electronics (from CSV)");
+            System.out.println("4. Display Clothing (from CSV)");
+            System.out.println("5. Insert Electronics to DB (from CSV)");
+            System.out.println("6. Insert Clothing to DB (from CSV)");
+            System.out.println("7. Display Electronics (from DB)");
+            System.out.println("8. Display Clothing (from DB)");
+            System.out.println("9. Compute Total Inventory Value (from imported CSV/DB)");
+            System.out.println("10. Display Shipping Costs (from DB)");
             System.out.println("0. Exit");
 
             System.out.print("Select option: ");
@@ -75,6 +77,24 @@ public class Main {
 
                 case 3:
                     if (electronicsCSVList.isEmpty()) {
+                        System.out.println("No electronics products imported yet.");
+                    } else {
+                        System.out.println("\n--- Electronics Products ---");
+                        displayCSVElectronics(electronicsCSVList);
+                    }
+                    break;
+
+                case 4:
+                    if (clothingCSVList.isEmpty()) {
+                        System.out.println("No clothing products imported yet.");
+                    } else {
+                        System.out.println("\n--- Clothing Products ---");
+                        displayCSVClothing(clothingCSVList);
+                    }
+                    break;
+
+                case 5:
+                    if (electronicsCSVList.isEmpty()) {
                         System.out.println("Please import electronics CSV first (option 1).");
                     } else {
                         try {
@@ -87,7 +107,7 @@ public class Main {
                     }
                     break;
 
-                case 4:
+                case 6:
                     if (clothingCSVList.isEmpty()) {
                         System.out.println("Please import clothing CSV first (option 2).");
                     } else {
@@ -101,15 +121,15 @@ public class Main {
                     }
                     break;
 
-                case 5:
+                case 7:
                     displayElectronics();
                     break;
 
-                case 6:
+                case 8:
                     displayClothing();
                     break;
 
-                case 7:
+                case 9:
                     // Compute total value inserted into database from CSV file
                     double totalValue = 0.0;
                     for (Electronics e : electronicsCSVList) totalValue += e.getInventoryValue();
@@ -123,7 +143,7 @@ public class Main {
                     System.out.printf("Total inventory value from database: %.2f%n", totalValueFromDB);
                     break;
 
-                case 8:
+                case 10:
                     if (!dbElectronics.isEmpty()) {
                         System.out.print("Enter shipping cost per kg for Electronics: ");
                         double costPerKg;
@@ -160,6 +180,28 @@ public class Main {
         }
 
         scanner.close();
+    }
+
+    public static void displayCSVElectronics(List<Electronics> electronicsList) {
+        System.out.printf("%-15s %-25s %-10s %-15s %-15s %-15s %-10s\n",
+                "Category", "Product Name", "Unit Cost", "Margin(%)", "Quantity", "Unit Price", "Weight(kg)");
+        System.out.println("-".repeat(115));
+        for (Electronics electro: electronicsList) {
+            System.out.printf("%-15s %-25s %-10.2f %-15d %-15d %-15.2f %-10.2f\n",
+                    electro.getCategory(), electro.getProdName(), electro.getUnitCost(),
+                    electro.getMargin(), electro.getQuantity(), electro.getUnitPrice(), electro.getWeight());
+        }
+    }
+
+    public static void displayCSVClothing(List<Clothing> clothingList) {
+        System.out.printf("%-20s %-30s %-10s %-15s %-15s %-15s %-10s\n",
+                "Category", "Product Name", "Unit Cost", "Margin(%)", "Quantity", "Unit Price", "Volume(cm³)");
+        System.out.println("-".repeat(125));
+        for (Clothing clothing : clothingList) {
+            System.out.printf("%-20s %-30s %-10.2f %-15d %-15d %-15.2f %-10.2f\n",
+                    clothing.getCategory(), clothing.getProdName(), clothing.getUnitCost(),
+                    clothing.getMargin(), clothing.getQuantity(), clothing.getUnitPrice(), clothing.getVolume());
+        }
     }
 
     public static void displayElectronics() {
