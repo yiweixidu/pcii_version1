@@ -18,8 +18,12 @@ public class Main {
     public static void main(String[] args) throws SQLException {
         Scanner scanner = new Scanner(System.in);
 
+        // Lists to hold data imported from CSV files
         List<Electronics> electronicsCSVList = new ArrayList<>();
         List<Clothing> clothingCSVList = new ArrayList<>();
+
+        // initialize DAO objects for database operations
+        // Lists to hold current database contents (loaded at startup)
         ElectronicsDAO electronicsDAO = new ElectronicsDAO();
         List<Electronics> dbElectronics = electronicsDAO.getAllElectronics();
         ClothingDAO clothingDAO = new ClothingDAO();
@@ -27,6 +31,7 @@ public class Main {
 
         boolean exit = false;
 
+        // Main program loop – displays menu and processes user input
         while (!exit) {
             // Menu
             System.out.println("\n==== Inventory System ====");
@@ -100,7 +105,7 @@ public class Main {
                         try {
                             electronicsDAO.batchInsertElectronics(electronicsCSVList);
                             System.out.println("Electronics inserted into database successfully.");
-                            dbElectronics = electronicsDAO.getAllElectronics();
+                            dbElectronics = electronicsDAO.getAllElectronics();     // Refresh the in‑memory database list
                         } catch (SQLException e) {
                             System.out.println("Error inserting electronics: " + e.getMessage());
                         }
@@ -114,7 +119,7 @@ public class Main {
                         try {
                             clothingDAO.batchInsertClothing(clothingCSVList);
                             System.out.println("Clothing inserted into database successfully.");
-                            dbClothing = clothingDAO.getAllClothing();
+                            dbClothing = clothingDAO.getAllClothing();      // Refresh the in‑memory database list
                         } catch (SQLException e) {
                             System.out.println("Error inserting clothing: " + e.getMessage());
                         }
@@ -182,6 +187,7 @@ public class Main {
         scanner.close();
     }
 
+    // Displays a list of electronics products in a formatted table. Used for CSV-imported data.
     public static void displayCSVElectronics(List<Electronics> electronicsList) {
         System.out.printf("%-15s %-25s %-10s %-15s %-15s %-15s %-10s\n",
                 "Category", "Product Name", "Unit Cost", "Margin(%)", "Quantity", "Unit Price", "Weight(kg)");
@@ -193,6 +199,7 @@ public class Main {
         }
     }
 
+    // Displays a list of clothing products in a formatted table. Used for CSV-imported data.
     public static void displayCSVClothing(List<Clothing> clothingList) {
         System.out.printf("%-20s %-30s %-10s %-15s %-15s %-15s %-10s\n",
                 "Category", "Product Name", "Unit Cost", "Margin(%)", "Quantity", "Unit Price", "Volume(cm³)");
@@ -204,6 +211,7 @@ public class Main {
         }
     }
 
+    // Retrieves all electronics from the database and displays them.
     public static void displayElectronics() {
         ElectronicsDAO electronicsDAO = new ElectronicsDAO();
         List<Electronics> electronicsList = electronicsDAO.getAllElectronics();
@@ -217,6 +225,7 @@ public class Main {
         }
     }
 
+    // Retrieves all clothing from the database and displays them.
     public static void displayClothing() {
         ClothingDAO clothingDAO = new ClothingDAO();
         List<Clothing> clothingList = clothingDAO.getAllClothing();
@@ -230,6 +239,7 @@ public class Main {
         }
     }
 
+    // Calculates and displays shipping costs for a list of products.
     public static void displayShippingCosts(String category, List<? extends Product> products, double costPerUnit) {
         System.out.println("\n--- " + category + " Shipping Costs ---");
         double totalShippingCost = 0.0;
