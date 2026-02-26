@@ -9,8 +9,6 @@ import java.sql.SQLException;
 public final class DBUtil {
     private static final Dotenv dotenv = Dotenv.load();
 
-    private DBUtil() {}
-
     public static Connection getConnection() throws SQLException {
         String url = dotenv.get("DB_URL");
         String user = dotenv.get("DB_USER");
